@@ -1,20 +1,18 @@
 from __future__ import absolute_import
 
-#from celery import shared_task
-import celery
+from celery import shared_task
+#import celery
 
 import os
 import digitalocean
 from datetime import datetime
-from take_snapshot.models import Backup
+from .models import Backup
 
 today = datetime.today()
 do_token = os.environ['TOKEN']
 manager = digitalocean.Manager(token=do_token)
 
-#@shared_task
-
-@celery.task
+@shared_task
 def do_backup():
     my_droplets = manager.get_all_droplets()
     for droplet in my_droplets:
