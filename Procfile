@@ -1,1 +1,1 @@
-web: gunicorn do_snapshot.wsgi --log-file -
+worker: celery worker --app=tasks.app
