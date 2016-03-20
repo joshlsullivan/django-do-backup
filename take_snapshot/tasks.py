@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 
-from celery import shared_task
+#from celery import shared_task
+import celery
 
 import os
 import digitalocean
@@ -11,7 +12,9 @@ today = datetime.today()
 do_token = os.environ['TOKEN']
 manager = digitalocean.Manager(token=do_token)
 
-@shared_task
+#@shared_task
+
+@celery.task
 def do_backup():
     my_droplets = manager.get_all_droplets()
     for droplet in my_droplets:
